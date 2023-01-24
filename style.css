@@ -53,6 +53,7 @@ main {
 .content {
     flex: 1;
     padding: 15px;
+    border-radius: 10px 100px / 120px;
 }
 
 /* portfolio styles */
