@@ -45,6 +45,7 @@ main {
 .sidebar {
     margin-right: 25px;
     padding: 10px;
+    border-radius: 10px 100px / 120px;
 }
 .sidebar-img {
     width: 200px;
