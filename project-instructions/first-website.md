@@ -171,26 +171,24 @@ We've made the structure of the site so now we need some content! Let's move on 
 
 - **2a.** **CODE:** Add your title `<title></title>` tag to where it belongs, between your `<head>` tags.
 
-      ><details>
-      ><summary> Click to see what your code should look like after this step</summary>
-      >
-      >````HTML
-      ><!DOCTYPE HTML>
-      ><html>
-      >    <head>
-      >        <title>Sheba's Amazing Website</title>
-      >    </head>
-      >
-      >    <body>
-      >
-      >    </body>
-      ></html>
-      >````
-      ></details>
-      >
+ <details> 
+     <summary> Click to see what your code should look like after this step</summary>
 
-  <br>
+  ```HTML
+  <!DOCTYPE HTML>
+  <html>
+      <head>
+        <title>Sheba's Amazing Website</title>
+      </head>
 
+      <body>
+
+      </body>
+  </html>
+  ```
+  </details>
+  
+<br>
 ## **TODO 3:** _Create Sections for the Menu and Main Content_
 
 We're going to create `<div>` tags to group our content together. What is the div tag you may ask?
@@ -215,16 +213,16 @@ We're going to create `<div>` tags to group our content together. What is the di
 
 - **3a.** **CODE:** Ok, onward with our code! Add a set of div tags within your body element.
 
-        ><details>
-        ><summary> What does this do? Click to expand</summary>
-        >
-        >>So, to start grouping together our content in a meaningful way, inside the `<body>` tag, we created a new document division using the `<div>` tag. This is going to contain all the site content. You can see that we also put a comment above that div.
-        >
-        >**DON'T FORGET to include the comment!** It might not have any effect on your code, but it will help you out by keeping sections of your code labeled for future reference and confirmation that you are adding content within the correct area.
-        >
-        >A comment is any bit of code that has no effect; it's only purpose is to make it easier for you and others to understand what is happening. In HTML, comments always take the form of `<!-- some message -->`.
-        >>
-        ></details>
+  <details>
+    <summary> What does this do? Click to expand</summary>
+    <summary>
+      So, to start grouping together our content in a meaningful way, inside the `<body>` tag, we created a new document division using the `<div>` tag. This is going to contain all the site content. You can see that we also put a comment above that div.
+      
+      DON'T FORGET to include the comment!** It might not have any effect on your code, but it will help you out by keeping sections of your code labeled for future reference and confirmation that you are adding content within the correct area.
+      
+      A comment is any bit of code that has no effect; it's only purpose is to make it easier for you and others to understand what is happening. In HTML, comments always take the form of `<!-- some message -->`.
+    </summary>
+  </details>
 
   <br>
 
@@ -259,10 +257,10 @@ We're going to create `<div>` tags to group our content together. What is the di
 
       - These will act as the two columns of our page - the sidebar and the main content, as noted by the comments we leave next to each. Once again, don't forget to include the comments!
 
-      <details>
-      <summary> Click to see what your code should look like after completing these steps</summary>
-
-      ```HTML
+    <details> 
+    <summary> Click to see what your code should look like after completing these steps </summary> 
+    
+    ```HTML
       <main>
           <!-- Sidebar section -->
           <div>
@@ -274,10 +272,10 @@ We're going to create `<div>` tags to group our content together. What is the di
 
           </div>
       </main>
-      ```
-      </details>
+    ```
+    </details>
 
-  <br>
+<br>
 
 ## **TODO 5:** _Add Content_
 
@@ -302,25 +300,24 @@ Inside of the Content `<div>` element, let's create a section where we can list 
    <details> 
    <summary> Click to see what your code should look like after completing these steps</summary>
 
-> In the end, your code should look like this (only with more specific interests, of course)!
->
-> ```HTML
->    <!-- Content Section-->
->    <div>
->        <h2></h2>
->        <p></p>
->        <!-- Interests section -->
->        <div>
->            <h3>Interests</h3>
->            <ul>
->                <li>Thing 1</li>
->                <li>Thing 2</li>
->                <li>Thing 3</li>
->            </ul>
->        </div>
->    </div>
-> ```
-
+    > In the end, your code should look like this (only with more specific interests, of course)!
+    >
+    > ```HTML
+    >    <!-- Content Section-->
+    >    <div>
+    >        <h2></h2>
+    >        <p></p>
+    >        <!-- Interests section -->
+    >        <div>
+    >            <h3>Interests</h3>
+    >            <ul>
+    >                <li>Thing 1</li>
+    >                <li>Thing 2</li>
+    >                <li>Thing 3</li>
+    >            </ul>
+    >        </div>
+    >    </div>
+    > ```
 </details>
 
 <br>
