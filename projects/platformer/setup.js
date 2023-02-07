@@ -2,7 +2,7 @@
 const walkAcceleration = 2.5;  // how much is added to the speed each frame
 const gravity = 0.5;           // how much is subtracted from speedY each frame
 const friction = 1.5;          // how much the player is slowed each frame
-const maxSpeed = 20;            // maximum horizontal speed, not vertical
+const maxSpeed = 25;            // maximum horizontal speed, not vertical
 const playerJumpStrength = 16; // this is subtracted from the speedY each jump
 const projectileSpeed = 4;     // the speed of projectiles
 
@@ -91,8 +91,8 @@ let animationDetails = {};
 var collectableList = {
   database: { image: "images/collectables/database.png" },
   diamond: { image: "images/collectables/diamond-head.png" },
-  grace: { image: "images/collectables/grace-head.png" },
+  biden: { image: "images/collectables/biden-head.png" },
   kennedi: { image: "images/collectables/kennedi-head.png" },
   max: { image: "images/collectables/max-head.png" },
-  steve: { image: "images/collectables/steve-head.png" },
+  robin: { image: "images/collectables/Robin.png" },
 };
