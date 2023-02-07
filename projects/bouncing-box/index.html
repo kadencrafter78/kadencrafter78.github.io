@@ -19,12 +19,14 @@
 		}
 		.board{
 			height: 100vh;
+			background-image: url(https://www.dc.com/sites/default/files/imce/2020/03-MAR/DC_BG_Batcave02900_5e83e1fb9a9237.81434114.jpg);
 		}
 	</style>
 	<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
 
 </head>
 <body class="board">
+	
 	<!-- HTML for the box -->
 	<div class="box">?</div>
 
@@ -48,8 +50,9 @@
 			box.on('click', handleBoxClick);
 
 			// moves the Box to a new position on the screen along the X-Axis
-			function moveBoxTo(newPositionX) {
+			function moveBoxTo(newPositionX, newPositionY) {
 				box.css("left", newPositionX);
+				box.css("top", newPositionY);
 			}
 
 			// changes the text displayed on the Box
@@ -62,17 +65,34 @@
 			//////////////////////////////////////////////////////////////////
 			
 			// TODO 2 - Variable declarations 
-			
-
-			
+			var positionX=0;
+			var points = 0;
+			var speed = 10;
+			var positionY = 100;
+			var speedY = 10;
+			var boardHeight = jQuery(window).height(); 
 			/* 
 			This Function will be called 20 times/second. Each time it is called,
 			it should move the Box to a new location. If the box drifts off the screen
 			turn it around! 
 			*/
 			function update() {
-				
-
+				// We Want to increase the value of positionX by 10
+				positionX+= speed;
+				positionY+= speedY;
+				moveBoxTo(positionX, positionY);
+				if (positionX > boardWidth){
+					speed = speed*-1;
+				}
+				if (positionX < 0){
+					speed = speed*-1;
+				}
+				if (positionY > boardHeight){
+					speedY = speedY*-1;
+				}
+				if (positionY < 0){
+					speedY = speedY*-1;
+				}
 			};
 
 			/* 
@@ -81,8 +101,22 @@
 			the left side of the screen.
 			*/
 			function handleBoxClick() {
-				
-
+				positionX = Math.random() * (boardWidth);
+				positionY = Math.random() * (boardHeight);
+				changeBoxText(points);
+				points += 1;
+				if (speed > 0){
+					speed += 3;
+				}
+				else {
+					speed -=3;
+				}
+				if (speedY > 0){
+					speedY += 3;
+				}
+				else {
+					speedY -=3;
+				}
 
 			};
 		})();
