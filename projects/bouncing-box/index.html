@@ -44,9 +44,9 @@
 			var boardWidth = board.width();	// the maximum X-Coordinate of the screen
 
 			// Every 50 milliseconds, call the update Function (see below)
-			setInterval(update, 50);
+			var interval = setInterval(update, 50);
 			
-			// Every time the box is clicked, call the handleBoxClick Function (see below)
+			// Every time the box is clicked, call the handleBoxClick Fucssnction (see below)
 			box.on('click', handleBoxClick);
 
 			// moves the Box to a new position on the screen along the X-Axis
@@ -71,12 +71,21 @@
 			var positionY = 100;
 			var speedY = 10;
 			var boardHeight = jQuery(window).height(); 
+			var colorStr = "rgb(50, 25, 250)";
+			function getRandomColor() {
+				let output = concat("rgb(", Math.random() * 255, ", ", Math.random() * 255, ", ", Math.random() * 255, ")");
+				return output;
+			}
+			var speedIncrease = 3;
+			var clicks = 0;
+			
 			/* 
 			This Function will be called 20 times/second. Each time it is called,
 			it should move the Box to a new location. If the box drifts off the screen
 			turn it around! 
 			*/
 			function update() {
+				box.css('background-color', colorStr);
 				// We Want to increase the value of positionX by 10
 				positionX+= speed;
 				positionY+= speedY;
@@ -93,6 +102,7 @@
 				if (positionY < 0){
 					speedY = speedY*-1;
 				}
+				
 			};
 
 			/* 
@@ -101,22 +111,28 @@
 			the left side of the screen.
 			*/
 			function handleBoxClick() {
+				clicks += 1;
+				if (clicks % 3 === 0){
+					speedIncrease += 1;
+				}
 				positionX = Math.random() * (boardWidth);
 				positionY = Math.random() * (boardHeight);
 				changeBoxText(points);
 				points += 1;
 				if (speed > 0){
-					speed += 3;
+					speed += speedIncrease;
 				}
 				else {
-					speed -=3;
+					speed -=speedIncrease;
 				}
 				if (speedY > 0){
-					speedY += 3;
+					speedY += speedIncrease;
 				}
 				else {
-					speedY -=3;
+					speedY -=speedIncrease;
 				}
+				colorStr = getRandomColor();
+				box.css('background-color', colorStr);
 
 			};
 		})();
