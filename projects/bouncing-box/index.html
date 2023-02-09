@@ -20,6 +20,8 @@
 		.board{
 			height: 100vh;
 			background-image: url(https://www.dc.com/sites/default/files/imce/2020/03-MAR/DC_BG_Batcave02900_5e83e1fb9a9237.81434114.jpg);
+			background-repeat: no-repeat;
+			background-size: contain;
 		}
 	</style>
 	<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
@@ -71,10 +73,10 @@
 			var positionY = 100;
 			var speedY = 10;
 			var boardHeight = jQuery(window).height(); 
-			var colorStr = "rgb(50, 25, 250)";
+			var colorStr = "rgb(100, 25, 250)";
 			function getRandomColor() {
 				let output = concat("rgb(", Math.random() * 255, ", ", Math.random() * 255, ", ", Math.random() * 255, ")");
-				return output;
+				colorStr = output;
 			}
 			var speedIncrease = 3;
 			var clicks = 0;
@@ -86,10 +88,11 @@
 			*/
 			function update() {
 				box.css('background-color', colorStr);
-				// We Want to increase the value of positionX by 10
+				// THis is how we make the box move
 				positionX+= speed;
 				positionY+= speedY;
 				moveBoxTo(positionX, positionY);
+				//To make it bounce
 				if (positionX > boardWidth){
 					speed = speed*-1;
 				}
@@ -111,6 +114,7 @@
 			the left side of the screen.
 			*/
 			function handleBoxClick() {
+				// Increases the speed increase every three clicks
 				clicks += 1;
 				if (clicks % 3 === 0){
 					speedIncrease += 1;
@@ -119,6 +123,7 @@
 				positionY = Math.random() * (boardHeight);
 				changeBoxText(points);
 				points += 1;
+				/* Makes sure speed is adequately increased */
 				if (speed > 0){
 					speed += speedIncrease;
 				}
@@ -131,8 +136,8 @@
 				else {
 					speedY -=speedIncrease;
 				}
-				colorStr = getRandomColor();
-				box.css('background-color', colorStr);
+				// I don't know how to set a variable to the result of a function.
+				getRandomColor();
 
 			};
 		})();

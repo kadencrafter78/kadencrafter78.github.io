@@ -49,6 +49,7 @@ $(function () {
     createCollectable("database", 150, 520, 0.2, 0.8);
     createCollectable("biden", 800, 580, 0.5, 0);
     createCollectable("database", 400, 100, 0.2, 0.8);
+    createCollectable("biden", 700, 100, 0.5, 0);
     
     
     
