@@ -8,7 +8,7 @@
 		.box {
 			width: 70px;
 			height: 70px;
-			background-color: teal;
+			background-color: rgb(92, 3, 3);
 			font-size: 300%;
 			text-align: center;
 			user-select: none;
@@ -88,7 +88,7 @@
 			turn it around! 
 			*/
 			function update() {
-				box.css('background-color', colorStr);
+				
 				// THis is how we make the box move
 				positionX+= speed;
 				positionY+= speedY;
@@ -137,8 +137,7 @@
 				else {
 					speedY -=speedIncrease;
 				}
-				// I don't know how to set a variable to the result of a function.
-				getRandomColor();
+				
 
 			};
 		})();
