@@ -8,7 +8,7 @@
 		.box {
 			width: 70px;
 			height: 70px;
-			background-color: rgb(92, 3, 3);
+			background-image: radial-gradient(red 10%, rgb(107, 11, 151)70%, rgb(0, 0, 0) 10%);
 			font-size: 300%;
 			text-align: center;
 			user-select: none;
@@ -74,11 +74,6 @@
 			var positionY = 100;
 			var speedY = 10;
 			var boardHeight = jQuery(window).height(); 
-			var colorStr = "rgb(100, 25, 250)";
-			function getRandomColor() {
-				let output = concat("rgb(", Math.random() * 255, ", ", Math.random() * 255, ", ", Math.random() * 255, ")");
-				colorStr = output;
-			}
 			var speedIncrease = 3;
 			var clicks = 0;
 			
@@ -88,7 +83,6 @@
 			turn it around! 
 			*/
 			function update() {
-				
 				// THis is how we make the box move
 				positionX+= speed;
 				positionY+= speedY;
