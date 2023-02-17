@@ -88,16 +88,10 @@
 				positionY+= speedY;
 				moveBoxTo(positionX, positionY);
 				//To make it bounce
-				if (positionX > boardWidth){
+				if (positionX > boardWidth || positionX < 0){
 					speed = speed*-1;
 				}
-				if (positionX < 0){
-					speed = speed*-1;
-				}
-				if (positionY > boardHeight){
-					speedY = speedY*-1;
-				}
-				if (positionY < 0){
+				if (positionY > boardHeight || positionY < 0){
 					speedY = speedY*-1;
 				}
 				
