@@ -19,6 +19,14 @@ var level01 = function (window) {
                 { "type": "sawblade", "x": 400, "y": groundY },
                 { "type": "sawblade", "x": 600, "y": groundY },
                 { "type": "sawblade", "x": 900, "y": groundY },
+                { "type": "drone", "x": 1000, "y": 300},
+                { "type": "drone", "x": 1400, "y": 420},
+                { "type": "drone", "x": 400, "y": 350},
+                { "type": "drone", "x": 1700, "y": 320},
+                { "type": "enemy", "x": 400, "y": groundY - 50},
+                { "type": "enemy", "x": 1200, "y": groundY - 50},
+                { "type": "enemy", "x":1800, "y": groundY - 50},
+                { "type": "reward", "x": 1000, "y": groundY - 50},
             ]
         };
         window.levelData = levelData;
@@ -39,11 +47,72 @@ sawBladeHitZone.addChild(obstacleImage);
 obstacleImage.x = -25;
 obstacleImage.y = -25;
        }
-       createSawBlade(700, 300);
-       createSawBlade(600, 450)
-       createSawBlade(400, 350);
-        
-        
+       function createDrone(x, y){
+        var hitZoneSize = 25;
+        var damageFromObstacle = 10;
+        var droneHitZone = game.createObstacle(hitZoneSize, damageFromObstacle);
+        droneHitZone.x = x;
+droneHitZone.y = y;
+game.addGameItem(droneHitZone);
+var obstacleImage = draw.bitmap("img/drone.png");
+droneHitZone.addChild(obstacleImage);
+obstacleImage.x = -25;
+obstacleImage.y = -25;
+       }
+       
+       function createEnemy(x,y){
+var enemy = game.createGameItem("enemy", 25);
+var redSquare = draw.rect(50, 100, "yellow");
+redSquare.x = -25;
+redSquare.y = -25;
+enemy.addChild(redSquare);
+enemy.x = x;
+enemy.y = y;
+enemy.velocityX = -2;
+enemy.rotationalVelocity = 0.1;
+enemy.onPlayerCollision = function () {
+    game.changeIntegrity(-20);}
+enemy.onProjectileCollision = function () {
+    game.increaseScore(100);
+    enemy.shrink();}
+game.addGameItem(enemy);
+       }
+       
+       // Seperating enemies and rewards
+       //
+       //
+       function createReward(x,y){
+        var reward = game.createGameItem("reward", 25);
+        var greenSquare = draw.rect(100, 100, "green");
+        greenSquare.x = -25;
+        greenSquare.y = -25;
+        reward.addChild(greenSquare);
+        reward.x = x;
+        reward.y = y;
+        reward.velocityX = -2.5;
+        reward.onPlayerCollision = function () {
+            game.changeIntegrity(30);
+            game.increaseScore(100);
+            reward.shrink();}
+        reward.onProjectileCollision = function () {
+            reward.shrink();}
+        game.addGameItem(reward);
+               }
+               
+               for (var i = 0; i < levelData.gameItems.length; i++) {
+                var eachElement = levelData.gameItems[i];
+                var firstX = eachElement.x;
+var firstY = eachElement.y;
+if (eachElement.type === "drone"){
+    createDrone(firstX, firstY);}
+    else if (eachElement.type === "enemy"){
+        createEnemy(firstX, firstY);
+    }
+    else if (eachElement.type === "reward"){
+        createReward(firstX, firstY);
+    }
+}
+
         // DO NOT EDIT CODE BELOW HERE
     }
 };
