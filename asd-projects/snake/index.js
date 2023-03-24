@@ -13,11 +13,18 @@ function runProgram(){
   
   // Game Item Objects
 var apple = {
-  x: 1
+  x: (Math.floor(Math.random() *21) * 20),
+  y: (Math.floor(Math.random() *21) * 20),
+  $element: gameItem
+}
+var snakePiece = {
+  x:40,
+  y:40,
+  $element: gameItem
 }
 
   // one-time setup
-  var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
+  var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL*6);   // execute newFrame every 0.0166 seconds (60 Frames per second)
   $(document).on('eventType', handleEvent);                           // change 'eventType' to the type of event you want to handle
 
   ////////////////////////////////////////////////////////////////////////////////
