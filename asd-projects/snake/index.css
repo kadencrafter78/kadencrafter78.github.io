@@ -8,14 +8,30 @@ body {
   height: 440px;
   border: 1px solid white;
   background-color: black;
-  position: relative;
 }
 
-#gameItem {
-  background-color: teal;
-  width: 50px;
-  height: 50px;
+#score, #highScore {
+  color: white;
+}
+
+.snake, .apple {
+  display: block;
+  width: 20px;
+  height: 20px;
   position: absolute;
-   left: 120px;   /* Uncomment if you want to set a "starting" position */
-   top: 120px;    /* Uncomment if you want to set a "starting" position */
+  user-select: none;
+}
+
+.snake {
+  background-color: green;
+  z-index: 2;
+}
+
+#snake-head {
+  background-color: darkgreen;
+}
+
+.apple {
+  background-color: red;
+  z-index: 1;
 }

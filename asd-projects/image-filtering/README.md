@@ -251,7 +251,7 @@ Now it's time to finally create some more filter functions.
 
 - **7c)** Inside of the inner loop of `applyFilterNoBackground`, use a conditional statement to check if the current pixel value is equal to the background pixel value. If it is not, then apply the filter.
 
-> **HINT:** There should be five lines of code in `applyFilterNoBackground` before completing **7c.**. Four of those lines of code are involved in applying the filter, so those lines need to be inside of the conditional's code block. The fifth one should not be inside of the code block, as it needs to happen no matter what (**Double hint: which line of code gets you a value that you need for your conditional's comparison?**).
+> **HINT:** There should be five lines of code in `applyFilterNoBackground` before completing **7c.**. Four of those lines of code are involved in applying the filter, so those lines need to be inside of the conditional's code block. One line, however, should not be inside of the code block, as it needs to happen no matter what (**Double hint: which line of code gets you a value that you need for your conditional's comparison?**).
 
 > **TESTING:** Once you've got this function working, replace **TWO** of your three `applyFilter` function calls with `applyFilterNoBackground`. You should see only one filter alter the background color, but all of them will change the main image!
 

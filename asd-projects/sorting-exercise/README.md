@@ -185,6 +185,17 @@ Here is a description of the function you must create.
 >    2. Call `quickSort` on all unsorted elements of the array to the left of the partition index (if two or more exist)
 >    3. Call `quickSort` on all unsorted elements of the array to the right of the partition index (if two or more exist); the element at the partiton index is included for the sorting
 
+>**PSEUDOCODE (for your reference; detailed instructions are below):**
+>```
+>FUNCTION quicksort(array, left, right):
+>   IF (right - left) > 0:
+>     index = partition(array, left, right)
+>     IF left < (index - 1):
+>       quicksort(array, left, index - 1)
+>     IF index < right:
+>       quicksort(array, index, right)
+>```
+
 <hr>
 
 * **3a)** For this step, create the skeleton of the function and set it up to take in the required parameters. 
@@ -201,7 +212,7 @@ Here is a description of the function you must create.
 
     * **3b-1)** Check if `quickSort` should even run
         
-        >**DETAILS:** Check if `right - left` is greater than `0`. If it is not, then you do not need to do anything else in the function (you can simply put `return`). If it is, **then all of the code in substeps 3b-2 through 3b-4 should be run.**
+        >**DETAILS:** Check if `right - left` is greater than `0`. If it is not, then you do not need to do anything else in the function. If it is, **then all of the code in substeps 3b-2 through 3b-4 should be run.**
 
     * **3b-2)** Call and use the `partition` function
         
@@ -246,6 +257,19 @@ Here is a description of the function you must create.
 >    3. Move all elements greater than `pivot` to the right of `pivot`
 >    4. Move all elements less than `pivot` to the left of `pivot`
 >    5. Update the counter and run the sorting at the specified rate for visualization purposes
+
+>**PSEUDOCODE (for your reference; detailed instructions are below):**
+>```
+>FUNCTION partition (array, left, right):
+>   pivot = select a pivot
+>   WHILE left < right:
+>     WHILE array[left] < pivot { left++ }
+>     WHILE array[right] > pivot { right-- }
+>     IF left < right:
+>       swap array[left] and array[right]
+>	
+>   RETURN left + 1
+>```
 
 If that seems like a lot, don't worry. We will approach this problem one step at a time, and several of those tasks will be taken care of in TODO 5. 
 
