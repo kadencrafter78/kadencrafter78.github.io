@@ -87,7 +87,7 @@ function moveSnake() {
   column/row properties. 
   
   */
-  for (let i = 1; i < snake.body; i++) {
+  for (let i = snake.body.length - 1; i > 0; i--) {
     var snakeSquare = snake.body[i];
     
     var nextSnakeSquare = snake.body[i + 1];
@@ -191,12 +191,12 @@ function handleAppleCollision() {
   var row = snake.tail.row;
   var column = snake.tail.column;
  if (snake.tail.direction === "left") {
-  snake.tail.column -= 1;
+  column += 1;
  } else if (snake.tail.direction === "right"){
-  snake.tail.column += 1;
+column -= 1;
  } else if (snake.tail.direction === "up"){
-  snake.tail.row -= 1;
- } else {snake.tail.row += 1;}
+  row += 1;
+ } else {row -= 1;}
   
   
   // code to determine the row and column of the snakeSquare to add to the snake
@@ -213,9 +213,14 @@ function hasCollidedWithSnake() {
   head and each part of the snake's body also knows its own row and column.
   
   */
-  
-  return false;
-}
+ var interact = false;
+ for (let i = 1; i < snake.body.length; i++){
+  if (snake.head.column === snake.body[i].column && snake.head.row === snake.body[i].row){
+    interact = true;
+  }
+ }
+ return interact;
+ }
 
 function hasHitWall() {
   /* 
@@ -330,6 +335,11 @@ function getRandomAvailablePosition() {
     not occupied by a snakeSquare in the snake's body. If it is then set 
     spaceIsAvailable to false so that a new position is generated.
     */
+   for (let i = 0; i < snake.body.length; i++){
+    if (randomPosition.column === snake.body[i].column && randomPosition.row === snake.body[i].row){
+      spaceIsAvailable = false;
+    }
+   }
   }
   
   return randomPosition;
