@@ -20,7 +20,11 @@ function resetAndRender() {
 // all of your apply functions
 function applyAndRender() {
   // Multiple TODOs: Call your apply function(s) here
-  applyFilter();
+  applyFilter(decreaseBlue);
+  applyFilter(reddify);
+  applyFilter(increaseGreenByBlue);
+  applyFilterNoBackground(reddify);
+  
   
 
   // do not change the below line of code
@@ -32,23 +36,38 @@ function applyAndRender() {
 /////////////////////////////////////////////////////////
 
 // TODO 1, 2 & 4: Create the applyFilter function here
-function applyFilter(){
+function applyFilter(filterFunction){
     for (var i = 0; i < image.length; i++){
       for (var j = 0; j < image[i].length; j++){
-        var rgbString = image[i][j];
+        var rgbString = image[i][j]; //Accessing the color of the square
         var rgbNumbers = rgbStringToArray(rgbString);
-        rgbNumbers[RED] = 255;
+        filterFunction(rgbNumbers);
         rgbString = rgbArrayToString(rgbNumbers);
-        image[i][j] = rgbString;
+        image[i][j] = rgbString; //applying the new color to the square
       }
     }
 };
 
 // TODO 7: Create the applyFilterNoBackground function
-
+function applyFilterNoBackground(filterFunction){
+  var background = image[0][0];
+  for (var i = 0; i < image.length; i++){
+    for (var j = 0; j < image[i].length; j++){
+      if (!(image[i][j] == background)){
+      var rgbString = image[i][j]; //Accessing the color of the square
+      var rgbNumbers = rgbStringToArray(rgbString);
+      filterFunction(rgbNumbers);
+      rgbString = rgbArrayToString(rgbNumbers);
+      image[i][j] = rgbString; //applying the new color to the square
+    }
+    }
+  }
+}
 
 // TODO 5: Create the keepInBounds function
-
+function keepInBounds(num){
+ return Math.max(Math.min(num, 255), 0);
+}
 
 // TODO 3: Create reddify function
 function reddify (arr){
@@ -56,6 +75,14 @@ function reddify (arr){
 }
 
 // TODO 6: Create more filter functions
+function decreaseBlue(arr){
+  arr[BLUE] -= 50;
+ arr[BLUE] = keepInBounds(arr[BLUE]);
+}
 
+function increaseGreenByBlue(arr){
+  var x = arr[GREEN] + arr[BLUE];
+  arr[GREEN] = keepInBounds(x);
+}
 
 // CHALLENGE code goes below here
