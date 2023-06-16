@@ -28,6 +28,7 @@ body {
   position: absolute;
   left: 20px;
   visibility: hidden;
+  
 }
 
 #paddle1 {
@@ -44,7 +45,8 @@ body {
   font-family: 'Public Pixel', sans-serif;
   color: white;
   position: absolute;
-  bottom: 5px;
+  bottom: 4px;
+  border: 1px solid rgb(199,36,177);
 }
 #scoreRight {
   right: 20px;

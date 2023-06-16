@@ -10,7 +10,7 @@ function runProgram(){
   // Constant Variables
   const FRAME_RATE = 60;
   const FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
-  const KEYS = {
+  const KEYS = { //This object serves for greater ease when marking keyboard events
     UP: 38,
     DOWN: 40,
     W: 87,
@@ -18,14 +18,14 @@ function runProgram(){
   }
   
   // Game Item Objects
-var ball = {
+var ball = { //This object represents the ball
   x: 390,
   y: 390,
   xSpeed: 0,
   ySpeed:0,
 }
 
-function createPaddle(left, id){
+function createPaddle(left, id){ //This function makes it so I don't have to reuse code for the objects
   return {
     top: 295,
     left: left,
@@ -40,7 +40,8 @@ var paddle2 = createPaddle(1690, 2);
 
   // one-time setup
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
-  $(document).on('eventType', handleEvent);                           // change 'eventType' to the type of event you want to handle
+  $(document).on('keydown', handleKeyDown);                           // change 'eventType' to the type of event you want to handle
+  $(document).on('keyup', handleKeyUp);
 
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
