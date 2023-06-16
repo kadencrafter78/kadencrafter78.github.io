@@ -4,7 +4,11 @@
     <title>Title</title>
     <!-- Load CSS files -->
     <link rel="stylesheet" type="text/css" href="index.css">
-    
+    <link href="https://fonts.cdnfonts.com/css/public-pixel" rel="stylesheet">
+    <style>
+      @import url('https://fonts.cdnfonts.com/css/public-pixel');
+</style>
+
     <!-- Load JavaScript files -->
     <script src="jquery.min.js"></script>
     <script src="index.js"></script>
@@ -13,10 +17,13 @@
   <body>
     <div id='board'>
       <div id='gameItem'></div>
-      <div class="paddles">
-        <div id="paddle1"></div>
-        <div id="paddle2"></div>
-      </div>
+      <div class="paddles"></div>
+        <div class = "paddles" id="paddle1"></div>
+        <div class = "paddles" id="paddle2"></div>
+    </div>
+    <div>
+    <p class="score" id="scoreLeft">Score: 0</p>
+    <p class="score" id="scoreRight">Score: 0</p>
     </div>
   </body>
 </html>

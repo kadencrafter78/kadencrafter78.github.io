@@ -10,9 +10,33 @@ function runProgram(){
   // Constant Variables
   const FRAME_RATE = 60;
   const FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
+  const KEYS = {
+    UP: 38,
+    DOWN: 40,
+    W: 87,
+    S: 83,
+  }
   
   // Game Item Objects
+var ball = {
+  x: 390,
+  y: 390,
+  xSpeed: 0,
+  ySpeed:0,
+}
 
+function createPaddle(left, id){
+  return {
+    top: 295,
+    left: left,
+    right: left + 50,
+    bottom: 625,
+    id: id,
+  }
+}
+
+var paddle1 = createPaddle(20, 1);
+var paddle2 = createPaddle(1690, 2);
 
   // one-time setup
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)

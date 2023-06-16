@@ -24,15 +24,28 @@ body {
   background-color: rgb(68,214,44);
   height: 330px;
   width: 50px;
-  top: 220px;
+  top: 295px;
   position: absolute;
+  left: 20px;
+  visibility: hidden;
 }
 
 #paddle1 {
   left: 20px;
-  
+  visibility: visible
 }
 
 #paddle2 {
-  left: 830px;
+  left: 1690px;
+  visibility: visible
+}
+
+.score {
+  font-family: 'Public Pixel', sans-serif;
+  color: white;
+  position: absolute;
+  bottom: 5px;
+}
+#scoreRight {
+  right: 20px;
 }
