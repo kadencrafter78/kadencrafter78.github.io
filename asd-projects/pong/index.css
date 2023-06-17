@@ -19,7 +19,7 @@ body {
   height: 50px;
   position: absolute;
    left: 390px;   /* Uncomment if you want to set a "starting" position */
-   top: 390px;    /* Uncomment if you want to set a "starting" position */
+   top: 0px;    /* Uncomment if you want to set a "starting" position */
 }
 
 .paddles {

@@ -16,6 +16,8 @@ function runProgram(){
     W: 87,
     S: 83,
   }
+  const BOARD_HEIGHT = 800;
+  const BOARD_WIDTH = 1760;
   
   // Game Item Objects
 var ball = { //This object represents the ball
@@ -23,26 +25,37 @@ var ball = { //This object represents the ball
   y: 390,
   xSpeed: 0,
   ySpeed:0,
+  right: 440,
+  bottom: 440,
+  height: 50,
+  width: 50,
+  id: "#ball",
 }
 
 function createPaddle(left, id){ //This function makes it so I don't have to reuse code for the objects
   return {
-    top: 295,
-    left: left,
+    y: 295,
+    x: left,
     right: left + 50,
     bottom: 625,
+    height: 330,
+    width: 50,
     id: id,
+    xSpeed: 0,
+    ySpeed: 0,
   }
 }
 
-var paddle1 = createPaddle(20, 1);
-var paddle2 = createPaddle(1690, 2);
+
+var paddle1 = createPaddle(20, "#paddle1");
+var paddle2 = createPaddle(1690, "#paddle2");
 
   // one-time setup
+  startBall();
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
   $(document).on('keydown', handleKeyDown);                           // change 'eventType' to the type of event you want to handle
   $(document).on('keyup', handleKeyUp);
-
+  
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
@@ -52,17 +65,43 @@ var paddle2 = createPaddle(1690, 2);
   by calling this function and executing the code inside.
   */
   function newFrame() {
-    
-
+    moveObject(ball);
+    moveObject(paddle1);
+    moveObject(paddle2);
+    paddleBallCollision();
   }
   
   /* 
   Called in response to events.
   */
-  function handleEvent(event) {
-
+  function handleKeyDown(event) {
+    if (event.which == 87){
+      paddle1.ySpeed = -3;
+    }
+    if (event.which == 83){
+      paddle1.ySpeed = 3;
+    }
+    if (event.which == 38){
+      paddle2.ySpeed = -3;
+    }
+    if (event.which == 40){
+      paddle2.ySpeed = 3;
+    }
   }
-
+function handleKeyUp(event){ //These allow the paddles to stop moving
+  if (event.which == 87){
+    paddle1.ySpeed += 3;
+  }
+  if (event.which == 83){
+    paddle1.ySpeed -= 3;
+  }
+  if (event.which == 38){
+    paddle2.ySpeed += 3;
+  }
+  if (event.which == 40){
+    paddle2.ySpeed -= 3;
+  }
+}
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
@@ -76,4 +115,36 @@ var paddle2 = createPaddle(1690, 2);
     $(document).off();
   }
   
+function startBall(){ //This gives the ball a random starting posiition and velocity
+  ball.y = Math.random() * (830 - 80) + 80;
+  ball.x = Math.random() * 1710;
+  ball.xSpeed = Math.max(Math.random() * 5, 2);
+  ball.ySpeed = Math.random() * 7;
 }
+function moveObject(obj){ //This moves the ball and makes the calculations to figure where to move it to, along with moving the paddles
+  
+  wallCollision(obj);
+  obj.x += obj.xSpeed;
+  obj.y += obj.ySpeed;
+  $(obj.id).css("left", obj.x);
+  $(obj.id).css("top", obj.y);
+}
+function wallCollision(obj){ //This function checks if the ball or paddles have collided with the wall
+  if (obj.x <= 0 || obj.x + obj.width >= BOARD_WIDTH){
+    obj.xSpeed = obj.xSpeed * -1;
+  }
+  if (obj.y <= 0 || obj.y + obj.height >= BOARD_HEIGHT){
+    obj.ySpeed = obj.ySpeed * -1;
+  }
+}
+function paddleBallCollision(){ //This function checks for collisions between the balls and the paddles
+  if (ball.x < paddle1.right && ball.x > paddle1.x && ball.y < paddle1.y + paddle1.height && ball.y > paddle1.y){
+  ball.xSpeed = (ball.xSpeed - 0.5) * -1;
+  ball.ySpeed = ball.ySpeed * -1;
+}
+if (ball.x + 50 < paddle2.right && ball.x + 50 > paddle2.x && ball.y < paddle2.y + paddle2.height && ball.y > paddle2.y){
+  ball.xSpeed = (ball.xSpeed + 0.5) * -1;
+  ball.ySpeed = ball.ySpeed * -1;
+}
+console.log (ball.x + 50 < paddle2.right && ball.x + 50 < paddle2.x);
+}}
