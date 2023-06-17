@@ -49,6 +49,8 @@ function createPaddle(left, id){ //This function makes it so I don't have to reu
 
 var paddle1 = createPaddle(20, "#paddle1");
 var paddle2 = createPaddle(1690, "#paddle2");
+var leftScore = 0;
+var rightScore = 0;
 
   // one-time setup
   startBall();
@@ -75,30 +77,30 @@ var paddle2 = createPaddle(1690, "#paddle2");
   Called in response to events.
   */
   function handleKeyDown(event) {
-    if (event.which == 87){
+    if (event.which == KEYS.W){
       paddle1.ySpeed = -3;
     }
-    if (event.which == 83){
+    if (event.which == KEYS.S){
       paddle1.ySpeed = 3;
     }
-    if (event.which == 38){
+    if (event.which == KEYS.UP){
       paddle2.ySpeed = -3;
     }
-    if (event.which == 40){
+    if (event.which == KEYS.DOWN){
       paddle2.ySpeed = 3;
     }
   }
 function handleKeyUp(event){ //These allow the paddles to stop moving
-  if (event.which == 87){
+  if (event.which == KEYS.W){
     paddle1.ySpeed += 3;
   }
-  if (event.which == 83){
+  if (event.which == KEYS.S){
     paddle1.ySpeed -= 3;
   }
-  if (event.which == 38){
+  if (event.which == KEYS.UP){
     paddle2.ySpeed += 3;
   }
-  if (event.which == 40){
+  if (event.which == KEYS.DOWN){
     paddle2.ySpeed -= 3;
   }
 }
@@ -131,7 +133,12 @@ function moveObject(obj){ //This moves the ball and makes the calculations to fi
 }
 function wallCollision(obj){ //This function checks if the ball or paddles have collided with the wall
   if (obj.x <= 0 || obj.x + obj.width >= BOARD_WIDTH){
-    obj.xSpeed = obj.xSpeed * -1;
+    if (ball.x <= 0){
+      score("right");
+    }
+    else{
+      score("left");
+    }
   }
   if (obj.y <= 0 || obj.y + obj.height >= BOARD_HEIGHT){
     obj.ySpeed = obj.ySpeed * -1;
@@ -140,11 +147,27 @@ function wallCollision(obj){ //This function checks if the ball or paddles have 
 function paddleBallCollision(){ //This function checks for collisions between the balls and the paddles
   if (ball.x < paddle1.right && ball.x > paddle1.x && ball.y < paddle1.y + paddle1.height && ball.y > paddle1.y){
   ball.xSpeed = (ball.xSpeed - 0.5) * -1;
-  ball.ySpeed = ball.ySpeed * -1;
 }
 if (ball.x + 50 < paddle2.right && ball.x + 50 > paddle2.x && ball.y < paddle2.y + paddle2.height && ball.y > paddle2.y){
   ball.xSpeed = (ball.xSpeed + 0.5) * -1;
-  ball.ySpeed = ball.ySpeed * -1;
 }
 console.log (ball.x + 50 < paddle2.right && ball.x + 50 < paddle2.x);
-}}
+}
+
+function score(direction){
+  if (direction == "left"){
+      leftScore += 1;
+  }
+  else {rightScore += 1;}
+  startBall();
+  $("#scoreLeft").text("Score: " + leftScore);
+  $("#scoreRight").text("Score: " + rightScore);
+  if (leftScore == 7 || rightScore == 7){
+    if (leftScore == 7){
+      $("h1").text("Player 1 Wins!");
+    } else {$("h1").text("Player 2 Wins!");}
+    endGame();
+  }
+}
+
+}
