@@ -1,7 +1,8 @@
 /* global $, sessionStorage */
 
+var playerCount;
 $(document).ready(runProgram); // wait for the HTML / CSS elements of the page to fully load, then execute runProgram()
-  
+
 function runProgram(){
   ////////////////////////////////////////////////////////////////////////////////
   //////////////////////////// SETUP /////////////////////////////////////////////
@@ -57,7 +58,8 @@ var rightScore = 0;
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
   $(document).on('keydown', handleKeyDown);                           // change 'eventType' to the type of event you want to handle
   $(document).on('keyup', handleKeyUp);
-  
+  $("#basicAI").click(basicAI);
+  $("#twoPlayer").click(multiplayer);
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
@@ -71,6 +73,9 @@ var rightScore = 0;
     moveObject(paddle1);
     moveObject(paddle2);
     paddleBallCollision();
+    if (playerCount == 1){
+      practicePaddle();
+    }
   }
   
   /* 
@@ -83,12 +88,14 @@ var rightScore = 0;
     if (event.which == KEYS.S){
       paddle1.ySpeed = 3;
     }
-    if (event.which == KEYS.UP){
-      paddle2.ySpeed = -3;
-    }
-    if (event.which == KEYS.DOWN){
-      paddle2.ySpeed = 3;
-    }
+    if (playerCount == 2){
+      if (event.which == KEYS.UP){
+        paddle2.ySpeed = -3;
+     }
+     if (event.which == KEYS.DOWN){
+       paddle2.ySpeed = 3;
+     }
+  }
   }
 function handleKeyUp(event){ //These allow the paddles to stop moving
   if (event.which == KEYS.W){
@@ -97,12 +104,14 @@ function handleKeyUp(event){ //These allow the paddles to stop moving
   if (event.which == KEYS.S){
     paddle1.ySpeed -= 3;
   }
-  if (event.which == KEYS.UP){
-    paddle2.ySpeed += 3;
-  }
-  if (event.which == KEYS.DOWN){
-    paddle2.ySpeed -= 3;
-  }
+  if (playerCount == 2){
+    if (event.which == KEYS.UP){
+      paddle2.ySpeed += 3;
+   }
+   if (event.which == KEYS.DOWN){
+     paddle2.ySpeed -= 3;
+   }
+}
 }
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
@@ -118,9 +127,9 @@ function handleKeyUp(event){ //These allow the paddles to stop moving
   }
   
 function startBall(){ //This gives the ball a random starting posiition and velocity
-  ball.y = Math.random() * (830 - 80) + 80;
+  ball.y = Math.random() * (780 - 80) + 80;
   ball.x = Math.random() * 1710;
-  ball.xSpeed = Math.max(Math.random() * 5, 2);
+  ball.xSpeed = Math.max(Math.random() * 7, 4);
   ball.ySpeed = Math.random() * 7;
 }
 function moveObject(obj){ //This moves the ball and makes the calculations to figure where to move it to, along with moving the paddles
@@ -146,10 +155,10 @@ function wallCollision(obj){ //This function checks if the ball or paddles have 
 }
 function paddleBallCollision(){ //This function checks for collisions between the balls and the paddles
   if (ball.x < paddle1.right && ball.x > paddle1.x && ball.y < paddle1.y + paddle1.height && ball.y > paddle1.y){
-  ball.xSpeed = (ball.xSpeed - 0.5) * -1;
+  ball.xSpeed = (ball.xSpeed - 1) * -1;
 }
 if (ball.x + 50 < paddle2.right && ball.x + 50 > paddle2.x && ball.y < paddle2.y + paddle2.height && ball.y > paddle2.y){
-  ball.xSpeed = (ball.xSpeed + 0.5) * -1;
+  ball.xSpeed = (ball.xSpeed + 1) * -1;
 }
 console.log (ball.x + 50 < paddle2.right && ball.x + 50 < paddle2.x);
 }
@@ -169,5 +178,38 @@ function score(direction){
     endGame();
   }
 }
+function basicAI(){
+  playerCount = 1;
+  startBall();
+  leftScore = 0;
+  rightScore = 0;
+  $("#scoreLeft").text("Score: " + leftScore);
+  $("#scoreRight").text("Score: " + rightScore);
+}
+function multiplayer(){
+  playerCount = 2;
+  startBall();
+  leftScore = 0;
+  rightScore = 0;
+  $("#scoreLeft").text("Score: " + leftScore);
+  $("#scoreRight").text("Score: " + rightScore);
+}
+
+function practicePaddle(){
+  if (ball.y > paddle2.y + paddle2.height && paddle2.y + paddle2.height < 1760){
+    paddle2.ySpeed = 2;
+    wait(500); 
+  }
+  else if (ball.y < paddle2.y){
+    paddle2.ySpeed = -2;
+    wait(500);
+  }
+  else {
+    paddle2.ySpeed = 0;
+    wait(500);
+  }
+}
 
 }
+
+

@@ -47,7 +47,7 @@ body {
   font-family: 'Public Pixel', sans-serif;
   color: white;
   position: absolute;
-  bottom: 2px;
+  top: 20px;
 }
 #scoreRight {
   right: 20px;
