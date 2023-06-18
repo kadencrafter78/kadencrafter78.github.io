@@ -128,7 +128,7 @@ function handleKeyUp(event){ //These allow the paddles to stop moving
   
 function startBall(){ //This gives the ball a random starting posiition and velocity
   ball.y = Math.random() * (780 - 80) + 80;
-  ball.x = Math.random() * 1710;
+  ball.x = Math.random() * 1680;
   ball.xSpeed = Math.max(Math.random() * 7, 4);
   ball.ySpeed = Math.random() * 7;
 }
@@ -144,9 +144,14 @@ function wallCollision(obj){ //This function checks if the ball or paddles have 
   if (obj.x <= 0 || obj.x + obj.width >= BOARD_WIDTH){
     if (ball.x <= 0){
       score("right");
-    }
+      paddle2.height -= 30;
+      $(paddle2.id).css("height", paddle2.height);
+      paddle2.y -= 30;}
     else{
       score("left");
+      paddle1.height -= 30;
+      $(paddle1.id).css("height", paddle1.height);
+      paddle1.y -= 30;
     }
   }
   if (obj.y <= 0 || obj.y + obj.height >= BOARD_HEIGHT){
@@ -185,6 +190,11 @@ function basicAI(){
   rightScore = 0;
   $("#scoreLeft").text("Score: " + leftScore);
   $("#scoreRight").text("Score: " + rightScore);
+  paddle2.height = 330;
+  $(paddle2.id).css("height", paddle2.height);
+  paddle1.height = 330;
+  $(paddle1.id).css("height", paddle1.height);
+
 }
 function multiplayer(){
   playerCount = 2;
@@ -193,6 +203,10 @@ function multiplayer(){
   rightScore = 0;
   $("#scoreLeft").text("Score: " + leftScore);
   $("#scoreRight").text("Score: " + rightScore);
+  paddle2.height = 330;
+  $(paddle2.id).css("height", paddle2.height);
+  paddle1.height = 330;
+  $(paddle1.id).css("height", paddle1.height);
 }
 
 function practicePaddle(){
