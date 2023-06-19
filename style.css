@@ -120,8 +120,8 @@ h2, h3 {
 
 /* Position the "next button" to the right */
 .next {
-  right: 300;
   border-radius: 3px 0 0 3px;
+  left: 1300px;
 }
 
 /* On hover, add a black background color with a little bit see-through */
