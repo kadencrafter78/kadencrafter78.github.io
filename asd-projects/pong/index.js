@@ -233,7 +233,6 @@ function multiplayer(){
   startBall();
 }
 function practicePaddle(difficulty){
-  $("#scoreRight").text(paddle2.y)
   if (ball.y > paddle2.y + paddle2.height && paddle2.y + paddle2.height < 1760){
     paddle2.ySpeed = 1 + difficulty;
   }
