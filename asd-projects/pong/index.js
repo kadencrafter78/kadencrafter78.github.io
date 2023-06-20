@@ -181,19 +181,19 @@ function wallCollision(obj){ //This function checks if the ball or paddles have 
   if (paddle1.y <= 0 || (paddle1.y + paddle1.height > BOARD_HEIGHT)){
     paddle1.ySpeed = 0;
     if (paddle1.y <= 0 ){
-      paddle1.y + 100;
+      paddle1.y += 100;
     }
     else {
-      paddle1.y - 100;
+      paddle1.y -= 100;
     }
   }
   if (paddle2.y <= 0 || (paddle2.y + paddle2.height > BOARD_HEIGHT)){
     paddle2.ySpeed = 0;
     if (paddle2.y <= 0 ){
-      paddle2.y + 100;
+      paddle2.y += 100;
     }
     else {
-      paddle2.y - 100;
+      paddle2.y -= 100;
     }
   }
 }
