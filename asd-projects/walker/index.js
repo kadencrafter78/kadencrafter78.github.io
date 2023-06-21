@@ -21,15 +21,8 @@ function runProgram(){
     D: 68,
   }; //Less need for memorization of key codes
   // Game Item Objects
-var walkerX = 0;
-var walkerY = 0;
-var walkerXSpeed = 0;
-var walkerYSpeed = 0; // Establishing variables to control walker
-
-var runnerX = 0;
-var runnerY = 0;
-var runnerXSpeed = 0;
-var runnerYSpeed = 0;
+  var walker = createWalker("#walker", 0, 0);// Establishing variables to control walker
+var runner = createWalker("#runner", 40, 40);
 
   // one-time setup
   var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
@@ -46,6 +39,7 @@ $(document).on('keyup', handleKeyUp); // Recognizes the key up event so speed ca
   function newFrame() {
     repositionGameItem();
     redrawGameItem();
+    doCollide(walker, runner);
   }
   
   /* 
@@ -54,42 +48,42 @@ $(document).on('keyup', handleKeyUp); // Recognizes the key up event so speed ca
   function handleKeyDown(event) {
 if (event.which === KEY.UP) {
   console.log("up pressed");
-  walkerYSpeed = -5;
+  walker.ySpeed = -5;
 }
 if (event.which === KEY.DOWN) {
   console.log("down pressed");
-  walkerYSpeed = 5;
+  walker.ySpeed = 5;
 }
 if (event.which === KEY.RIGHT) {
   console.log("right pressed");
-  walkerXSpeed = 5;
+  walker.xSpeed = 5;
 }
 if (event.which === KEY.LEFT) {
   console.log("left pressed");
-  walkerXSpeed = -5;
+  walker.xSpeed = -5;
 }
 if (event.which === KEY.W) {
   console.log("up pressed");
-  runnerYSpeed = -5;
+  runner.ySpeed = -5;
 }
 if (event.which === KEY.S) {
   console.log("down pressed");
-  runnerYSpeed = 5;
+  runner.ySpeed = 5;
 }
 if (event.which === KEY.D) {
   console.log("right pressed");
-  runnerXSpeed = 5;
+  runner.xSpeed = 5;
 }
 if (event.which === KEY.A) {
   console.log("left pressed");
-  runnerXSpeed = -5;
+  runner.xSpeed = -5;
 }
   }
   function handleKeyUp (){
-    walkerXSpeed = 0;
-    walkerYSpeed = 0;
-    runnerXSpeed = 0;
-    runnerYSpeed = 0;
+    walker.xSpeed = 0;
+    walker.ySpeed = 0;
+    runner.xSpeed = 0;
+    runner.ySpeed = 0;
   }
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -105,28 +99,57 @@ if (event.which === KEY.A) {
     $(document).off();
   }
   function repositionGameItem(){
-    walkerX += walkerXSpeed;
-    walkerY += walkerYSpeed;
-    if (walkerX > 390 || walkerX < 0){
-      walkerX -= walkerXSpeed;
+    walker.x += walker.xSpeed;
+    walker.y += walker.ySpeed;
+    if (walker.x > 390 || walker.x < 0){
+      walker.x -= walker.xSpeed;
     }
-    if (walkerY > 390 || walkerY < 0){
-      walkerY -= walkerYSpeed;
+    if (walker.y > 390 || walker.y < 0){
+      walker.y -= walker.ySpeed;
     }
-    runnerX += runnerXSpeed;
-    runnerY += runnerYSpeed;
-    if (runnerX > 390 || runnerX < 0){
-      runnerX -= runnerXSpeed;
+    runner.x += runner.xSpeed;
+    runner.y += runner.ySpeed;
+    if (runner.x > 390 || runner.x < 0){
+      runner.x -= runner.xSpeed;
     }
-    if (runnerY > 390 || runnerY < 0){
-      runnerY -= runnerYSpeed;
+    if (runner.y > 390 || runner.y < 0){
+      runner.y -= runner.ySpeed;
     }
   }; // Sets walker's new position
   function redrawGameItem(){
-    $("#walker").css("left", walkerX);
-    $("#walker").css("top", walkerY);
-    $("#runner").css("left", runnerX);
-    $("#runner").css("top", runnerY);
+    $(walker.id).css("left", walker.x);
+    $(walker.id).css("top", walker.y);
+    $(runner.id).css("left", runner.x);
+    $(runner.id).css("top", runner.y);
   }; // Actually moves walker on screen
-  
+  function doCollide(obj1, obj2){
+    if (obj1.x < obj2.x + 60 && obj1.x > obj2.x && (obj1.y < obj2.y + 60 && obj1.y > obj2.y)){
+      console.log(true);
+      if (Math.random() * 10 >= 5){
+        obj1.x = 390;
+        obj1.y = 390;
+        $(obj1.id).css('background-color', 'red');
+        obj2.x = 0;
+        obj2.y = 0;
+        $(obj2.id).css('background-color', 'blue')
+      }
+      else {
+        obj2.x = 390;
+        obj2.y = 390;
+        $(obj2.id).css('background-color', 'red');
+        obj1.x = 0;
+        obj1.y = 0;
+        $(obj1.id).css('background-color', 'blue')
+      }
+    }
+  }
+  function createWalker(id, x, y){
+    return {
+      x: x,
+      y: y,
+      xSpeed: 0,
+      ySpeed: 0,
+      id: id,
+    }
+  }
 }
