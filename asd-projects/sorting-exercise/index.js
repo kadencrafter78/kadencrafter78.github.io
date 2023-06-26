@@ -31,10 +31,10 @@ async function quickSort(array, left, right){
     if (right - left > 0){
         var index = await partition(array, left, right);
         if (left < index - 1){
-            await quicksort(array, left, index - 1);
+            await quickSort(array, left, index - 1);
         }
         if (index < right){
-            await quicksort(array, index, right);
+            await quickSort(array, index, right);
         }
     }
     
@@ -42,18 +42,18 @@ async function quickSort(array, left, right){
 
 // TODOs 4 & 5: Implement partition
 async function partition(array, left, right){
-    var pivot = 5;
+    var pivot = array[Math.floor((right + left)/2)].value;;
     while (left < right){
         while (array[left].value < pivot){
-            left ++;
+            left++;
         }
         while (array[right].value > pivot){
-            right --;
+            right--;
         }
         if (left < right){
             swap(array, left, right);
             updateCounter(quickCounter);
-            await sleep;
+            await sleep();
         }
     }
     return left + 1;
