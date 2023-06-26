@@ -53,6 +53,8 @@ var paddle1 = createPaddle(20, "#paddle1");
 var paddle2 = createPaddle(1690, "#paddle2");
 var leftScore = 0;
 var rightScore = 0;
+var difficulty;
+var expectedY;
 
   // one-time setup
   var playerCount = 1;
@@ -62,6 +64,7 @@ var rightScore = 0;
   $(document).on('keyup', handleKeyUp);
   $("#basicAI").on("click", basicAI);
   $("#twoPlayer").on("click", multiplayer);
+  $("#impossible").on("click", advancedAI);
   leftScore = 0;
   rightScore = 0;
   $("#scoreLeft").text("Score: " + leftScore);
@@ -80,7 +83,7 @@ var rightScore = 0;
     moveObject(paddle2);
     paddleBallCollision();
     if (playerCount == 1){
-      practicePaddle(5);
+      practicePaddle(difficulty);
     }
   }
   
@@ -137,6 +140,7 @@ function startBall(){ //This gives the ball a random starting posiition and velo
   ball.x = Math.random() * 1680;
   ball.xSpeed = Math.max(Math.random() * 7, 4);
   ball.ySpeed = Math.random() * 7;
+  expectY();
   paddle1.y = 295 + paddle1.heightLoss;
   paddle2.y = 295 + paddle2.heightLoss;
 }
@@ -200,13 +204,12 @@ function wallCollision(obj){ //This function checks if the ball or paddles have 
 function paddleBallCollision(){ //This function checks for collisions between the balls and the paddles
   if (ball.x < paddle1.right && ball.x > paddle1.x && (ball.y < paddle1.y + paddle1.height && ball.y > paddle1.y)){
   ball.xSpeed = (ball.xSpeed - 1) * -1;
+  expectY();
 }
 if (ball.x + 50 < paddle2.right && ball.x + 50 > paddle2.x && (ball.y < paddle2.y + paddle2.height && ball.y > paddle2.y)){
   ball.xSpeed = (ball.xSpeed + 1) * -1;
 }
-console.log (ball.x + 50 < paddle2.right && ball.x + 50 < paddle2.x);
 }
-
 function score(direction){
   if (direction == "left"){
       leftScore += 1;
@@ -226,6 +229,7 @@ function score(direction){
 }
 function basicAI(){
   playerCount = 1;
+  difficulty = "normal";
   startBall();
 }
 function multiplayer(){
@@ -233,15 +237,28 @@ function multiplayer(){
   startBall();
 }
 function practicePaddle(difficulty){
-  if (ball.y > paddle2.y + paddle2.height && paddle2.y + paddle2.height < 1760){
-    paddle2.ySpeed = 1 + difficulty;
+  if (difficulty == "normal"){
+  if (ball.y > paddle2.y + paddle2.height && paddle2.y + paddle2.height < BOARD_WIDTH){
+    paddle2.ySpeed = 2;
   }
   else if (ball.y < paddle2.y && ball.y > 20){
-    paddle2.ySpeed = -1 - difficulty;
+    paddle2.ySpeed = -2;
   }
   else {
     paddle2.ySpeed = 0;
   }
+}
+else {
+  if (expectedY > paddle2.y + paddle2.height && paddle2.y + paddle2.height < BOARD_WIDTH){
+    paddle2.ySpeed = 4;
+  }
+  else if (expectedY < paddle2.y + 20 && expectedY > 20){
+    paddle2.ySpeed = -4;
+  }
+  else {
+    paddle2.ySpeed = 0;
+  }
+}
   if (paddle2.y < 0){
     paddle2.y += 200;
   }
@@ -249,7 +266,32 @@ function practicePaddle(difficulty){
     paddle2.y -= 200;
   }
 }
-
+function advancedAI(){
+  playerCount = 1;
+  startBall();
+  difficulty = "impossible";
+}
+function expectY(){
+  var expectedFrames = (paddle2.x - ball.x) / ball.xSpeed;
+  expectedY = ball.y + (ball.ySpeed * expectedFrames);
+  var bounce = 0;
+  if (expectedY < 0){
+    expectedY *= -1;
+  }
+  while (expectedY >= BOARD_HEIGHT){
+    expectedY = expectedY - BOARD_HEIGHT;
+    bounce += 1;
+}
+expectedY = ball.y + ((ball.ySpeed + (bounce * 0.5)) * expectedFrames);
+if (expectedY < 0){
+  expectedY *= -1;
+}
+while (expectedY >= BOARD_HEIGHT){
+  expectedY = expectedY - BOARD_HEIGHT;
+}
+  console.log(bounce);
+  console.log(expectedY);
+}
 }
 
 
