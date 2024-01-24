@@ -85,19 +85,28 @@
 
     // AI movement: CPU follows ball //
     if ((paddleCPU.y + midCPU) < (ball.y - 14)) {
-      paddleCPU.y += paddleCPU.yVelocity;
+      paddleCPU.y += paddleCPU.yVelocity; //goes down to reach the ball
     } else if ((paddleCPU.y + midCPU) > (ball.y + 14)) {
-      paddleCPU.y -= paddleCPU.yVelocity;
+      paddleCPU.y -= paddleCPU.yVelocity; //heads up to hit the ball back
     }
 
     // TODO 1: bounce the ball off the top
-
+    if (ball.y - ball.radius <= 0){
+      ball.yVelocity = -ball.yVelocity;
+    }
 
     // TODO 2: bounce the ball off the bottom
-
+    if (ball.y + ball.radius >= canvas.height){
+      ball.yVelocity = -ball.yVelocity;
+    }
 
     // TODO 3: bounce the ball off each of the paddles
-
+    if (ball.x - ball.radius <= paddlePlayer.x && ball.y + ball.radius <= heightPlayer + paddlePlayer.y && ball.y - ball.radius >= paddlePlayer.y){
+      ball.xVelocity = -ball.xVelocity;
+    }
+    if (ball.x + ball.radius >= paddleCPU.x && ball.y + ball.radius <= heightCPU + paddleCPU.y && ball.y - ball.radius >= paddleCPU.y){
+    ball.xVelocity = -ball.xVelocity;
+  }
 
   }
 
