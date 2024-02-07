@@ -7,7 +7,7 @@
     engine = opspark.V6().activateResize(), // game engine for actively rendering + running the game's mechanics
     canvas = engine.getCanvas(), // object for referencing the height / width of the window
     stage = engine.getStage(); // object to hold all visual components
-
+console.log(draw);
   // load some sounds for the demo - play sounds using: createjs.Sound.play("wall");
   createjs.Sound.on("fileload", handleLoadComplete);
   createjs.Sound.alternateExtensions = ["mp3"];
@@ -21,28 +21,32 @@
     .addTickHandlers(update) // establish the update function as the callback for every timer tick
     .activateTick();
 
+    // set initial quantity for score
+    var txtScore = 0;
+
   // Variable declarations for the paddles and the ball which are drawn using createJS (see bower_components/opspark-draw/draw.js)
   const
     paddlePlayer = createPaddle(),
     paddleCPU = createPaddle({ x: canvas.width - 20, y: canvas.height - 100 }),
-    ball = draw.circle(20, '#CCC');
+    ball = draw.circle(20, '#CCC'),
+    text = createText(txtScore);
 
   // set initial properties for the paddles 
   paddlePlayer.yVelocity = 0;
   paddleCPU.yVelocity = 6;
 
   // set initial properties for the ball
-  ball.x = canvas.width / 2;
-  ball.y = canvas.height / 2;
+  ball.x = Math.floor(Math.random()*(canvas.width));
+  ball.y = Math.floor(Math.random()*(canvas.height));
   ball.xVelocity = 5;
   ball.yVelocity = 5;
 
   // add the paddles and the ball to the view
-  stage.addChild(paddlePlayer, paddleCPU, ball);
-
-
+  stage.addChild(paddlePlayer, paddleCPU, ball, text);
   document.addEventListener('keyup', onKeyUp);
   document.addEventListener('keydown', onKeyDown);
+
+
 
   // when an Arrow key is pressed down, set the paddle in motion
   function onKeyDown(event) {
@@ -93,20 +97,31 @@
     // TODO 1: bounce the ball off the top
     if (ball.y - ball.radius <= 0){
       ball.yVelocity = -ball.yVelocity;
+      createjs.Sound.play("wall");
     }
 
     // TODO 2: bounce the ball off the bottom
     if (ball.y + ball.radius >= canvas.height){
       ball.yVelocity = -ball.yVelocity;
+      createjs.Sound.play("wall");
     }
 
     // TODO 3: bounce the ball off each of the paddles
     if (ball.x - ball.radius <= paddlePlayer.x && ball.y + ball.radius <= heightPlayer + paddlePlayer.y && ball.y - ball.radius >= paddlePlayer.y){
       ball.xVelocity = -ball.xVelocity;
+      createjs.Sound.play("hit");
+      text.text += 1;
+      console.log(text.text)
     }
     if (ball.x + ball.radius >= paddleCPU.x && ball.y + ball.radius <= heightCPU + paddleCPU.y && ball.y - ball.radius >= paddleCPU.y){
     ball.xVelocity = -ball.xVelocity;
+    createjs.Sound.play("hit");
   }
+    if (ball.x >= canvas.width || ball.x + ball.radius <= 0){
+      ball.x = Math.floor(Math.random()*((canvas.width - ball.radius) - 100));
+      ball.y = Math.floor(Math.random()*((canvas.height - ball.radius) - 100));
+      text.text = 0;
+    }
 
   }
 
@@ -116,6 +131,11 @@
     paddle.x = x;
     paddle.y = y;
     return paddle;
+  }
+  // Creates the text needed to see the score
+  function createText(input) {
+    var text = draw.textfield(input, "30px Cursive", "#800085", "center", "top", 40, 20);
+    return text;
   }
 
 

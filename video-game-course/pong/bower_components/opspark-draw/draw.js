@@ -557,7 +557,7 @@
          * textfield: builds a CreateJS Text.
          * @param {String} text: A hexidecimal number, the color of the text.
          * @param {String} sizeAndFont: The font style to use. Any valid value for the CSS font attribute is acceptable (ex. "bold 36px Arial").
-         * @param {String} colr: A hexidecimal number, the color of the text.
+         * @param {String} color: A hexidecimal number, the color of the text.
          * @param {String} align: Any of "start", "end", "left", "right", and "center".
          * @param {String} baseline: Any of "top", "hanging", "middle", "alphabetic", "ideographic", or "bottom".
          * @param {Number} x: The x position of the Text.
