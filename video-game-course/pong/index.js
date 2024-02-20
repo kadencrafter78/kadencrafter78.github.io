@@ -107,21 +107,29 @@ console.log(draw);
     }
 
     // TODO 3: bounce the ball off each of the paddles
+
+function paddleHit(paddle){
+  if (paddle == 'paddlePlayer'){
+    ball.xVelocity -= 1;
+    text.text += 1
+    console.log(text.text)
+  }
+  else {
+    ball.xVelocity += 1;
+  }
+  ball.xVelocity = -ball.xVelocity;
+  createjs.Sound.play("hit");
+}
+
     if (ball.x - ball.radius <= paddlePlayer.x && ball.y + ball.radius <= heightPlayer + paddlePlayer.y && ball.y - ball.radius >= paddlePlayer.y){
-      ball.xVelocity -=1;
-      ball.xVelocity = -ball.xVelocity;
-      createjs.Sound.play("hit");
-      text.text += 1;
-      console.log(text.text)
+      paddleHit('paddlePlayer');
     }
     if (ball.x + ball.radius >= paddleCPU.x && ball.y + ball.radius <= heightCPU + paddleCPU.y && ball.y - ball.radius >= paddleCPU.y){
-      ball.xVelocity += 1;
-      ball.xVelocity = -ball.xVelocity;
-      createjs.Sound.play("hit");
+      paddleHit('cpuPaddle');
   }
     if (ball.x >= canvas.width || ball.x + ball.radius <= 0){
-      ball.x = Math.floor(Math.random()*((canvas.width - ball.radius) - 100));
-      ball.y = Math.floor(Math.random()*((canvas.height - ball.radius) - 100));
+      ball.x = Math.floor(Math.random()*((canvas.width - 100) - 100));
+      ball.y = Math.floor(Math.random()*((canvas.height - 100) - 100));
       ball.xVelocity = 5;
       ball.yVelocity = 5;
       text.text = 0;
