@@ -4,10 +4,11 @@
  */
 (function(window, createjs) {
   // TODO 5: Initialize CreateJS //
-  
+  const canvas = document.getElementById('canvas');
+  const stage = new createjs.Stage(canvas);
 
   // TODO 6: Set the framerate of the Ticker
-  
+  createjs.Ticker.framerate = 60;
 
 
   /*
@@ -16,35 +17,74 @@
    */
   
   // INIT CREATEJS //
-
-  
+  const radius = 25;
+  const margin = 125;
+  const circleContainer = new createjs.Container();
+  const smileContainer = new createjs.Container();
 
     
   // CREATE A BACKGROUND //
-
+const background = new createjs.Shape();
+background.graphics.beginFill('#800085').drawRect(0, 0, canvas.width, canvas.height);
     
   // CREATE A CIRCLE //
+  const circle1 = new createjs.Shape();
+  const circle2 = new createjs.Shape();
+  circle1.graphics.beginFill('#420669').drawCircle(0, 0, radius);
+  circle2.graphics.beginFill('#669420').drawCircle(0, 0, radius);
+  circle1.x = radius * 2 + margin;
+  circle2.x = canvas.width - radius * 2 - margin;
+  circle2.y = circle1.y = canvas.height / 2
 
-  
+// Creating Smile
+
+  const smile1 = new createjs.Shape();
+  const smile2 = new createjs.Shape();
+  const smile3 = new createjs.Shape();
+
+  smile1.graphics.beginFill('#000000').drawRect(0, 0, 30, 100);
+  smile2.graphics.beginFill('#000000').drawRect(170, 0, 30, 100);
+  smile3.graphics.beginFill('#000000').drawRect(0, 100, 200, 50);
+
+  smileContainer.x = circle1.x;
+  smileContainer.y = circle2.y + 80;
 
 
   // ADD DISPLAY OBJECTS TO STAGE //
-
+  circleContainer.addChild(circle1, circle2);
+  smileContainer.addChild(smile1, smile2, smile3);
+  stage.addChild(background, circleContainer, smileContainer);
 
 
   // TODO 8: Listen to the 'tick' event  //
-  
+  let tickHandler = createjs.Ticker.on('tick', onTick);
   
 
   // TODO 9: Handle the 'tick' event //
+  function onTick(event){
+    update(event);
+  }
   
-  
+//Variables that track movement
+  let eyeSpeed = 1;
+  let bounds = 20;
 
   /*
    * TODO 10: Implement an update Function, after making 
    * changes to assets, it must call stage.update(); 
    */
-  
+  function update(event){
+    smileContainer.x += eyeSpeed;
+    smileContainer.y += eyeSpeed;
+    circleContainer.x += eyeSpeed;
+    circleContainer.y += eyeSpeed;
+    circleContainer.radius = 25;
+    if (Math.abs(circleContainer.x) >= bounds){
+      eyeSpeed = eyeSpeed*-1;
+    }
+    stage.update();
+    //update stage after changing display objects
+  }
   
 
 }(window, window.createjs));
