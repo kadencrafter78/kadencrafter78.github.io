@@ -46,7 +46,7 @@ background.graphics.beginFill('#800085').drawRect(0, 0, canvas.width, canvas.hei
   smile2.graphics.beginFill('#000000').drawRect(170, 0, 30, 100);
   smile3.graphics.beginFill('#000000').drawRect(0, 100, 200, 50);
 
-  smileContainer.x = circle1.x;
+  smileContainer.x = circle1.x - 25;
   smileContainer.y = circle2.y + 80;
 
 
