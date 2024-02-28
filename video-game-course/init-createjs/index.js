@@ -17,7 +17,7 @@
    */
   
   // INIT CREATEJS //
-  const radius = 25;
+  var radius = 25;
   const margin = 125;
   const circleContainer = new createjs.Container();
   const smileContainer = new createjs.Container();
@@ -30,11 +30,9 @@ background.graphics.beginFill('#800085').drawRect(0, 0, canvas.width, canvas.hei
   // CREATE A CIRCLE //
   const circle1 = new createjs.Shape();
   const circle2 = new createjs.Shape();
-  circle1.graphics.beginFill('#420669').drawCircle(0, 0, radius);
-  circle2.graphics.beginFill('#669420').drawCircle(0, 0, radius);
-  circle1.x = radius * 2 + margin;
-  circle2.x = canvas.width - radius * 2 - margin;
-  circle2.y = circle1.y = canvas.height / 2
+  circle1.graphics.beginFill('#420669').drawCircle(50, 50, radius);
+  circle2.graphics.beginFill('#669420').drawCircle(50, 50, radius);
+  circle2.x = circle1.x + 160;
 
 // Creating Smile
 
@@ -42,12 +40,11 @@ background.graphics.beginFill('#800085').drawRect(0, 0, canvas.width, canvas.hei
   const smile2 = new createjs.Shape();
   const smile3 = new createjs.Shape();
 
-  smile1.graphics.beginFill('#000000').drawRect(0, 0, 30, 100);
-  smile2.graphics.beginFill('#000000').drawRect(170, 0, 30, 100);
-  smile3.graphics.beginFill('#000000').drawRect(0, 100, 200, 50);
+  smile1.graphics.beginFill('#000000').drawRect(0, 150, 30, 100);
+  smile2.graphics.beginFill('#000000').drawRect(170, 150, 30, 100);
+  smile3.graphics.beginFill('#000000').drawRect(0, 250, 200, 50);
+  smileContainer.x = 50;
 
-  smileContainer.x = circle1.x - 25;
-  smileContainer.y = circle2.y + 80;
 
 
   // ADD DISPLAY OBJECTS TO STAGE //
@@ -68,17 +65,28 @@ background.graphics.beginFill('#800085').drawRect(0, 0, canvas.width, canvas.hei
 //Variables that track movement
   let eyeSpeed = 1;
   let bounds = 20;
+  let radiusChange = 1;
+  let upperBounds = 2;
+  let lowerBounds = 0.8;
+  let changeAmount =0.01;
 
   /*
    * TODO 10: Implement an update Function, after making 
    * changes to assets, it must call stage.update(); 
    */
   function update(event){
-    smileContainer.x += eyeSpeed;
-    smileContainer.y += eyeSpeed;
-    circleContainer.x += eyeSpeed;
-    circleContainer.y += eyeSpeed;
-    circleContainer.radius = 25;
+    smileContainer.scaleX = radiusChange;
+    smileContainer.scaleY = radiusChange;
+    circleContainer.scaleX = radiusChange;
+    circleContainer.scaleY = radiusChange;
+    radiusChange += changeAmount;
+    if (radiusChange > upperBounds){
+      changeAmount = changeAmount * -1;
+    }
+    if (radiusChange < lowerBounds){
+      changeAmount = changeAmount*-1;
+    }
+    console.log(radiusChange);
     if (Math.abs(circleContainer.x) >= bounds){
       eyeSpeed = eyeSpeed*-1;
     }
