@@ -1,0 +1,23 @@
+{
+  "name": "game78",
+  "main": "index.js",
+  "homepage": "https://github.com/kadencrafter78/game78",
+  "description": "A gaming library made by yours truly.",
+  "keywords": [
+    "gaming"
+  ],
+  "authors": [
+    "kadencrafter78"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}

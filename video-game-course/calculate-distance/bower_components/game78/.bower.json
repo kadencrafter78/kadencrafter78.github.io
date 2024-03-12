@@ -1,0 +1,34 @@
+{
+  "name": "game78",
+  "main": "index.js",
+  "homepage": "https://github.com/kadencrafter78/game78",
+  "description": "A gaming library made by yours truly.",
+  "keywords": [
+    "gaming"
+  ],
+  "authors": [
+    "kadencrafter78"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "version": "1.1.1",
+  "_release": "1.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.1.1",
+    "commit": "7b052ae4407b88c203a437f6d02dbc0cb06f8b74"
+  },
+  "_source": "https://github.com/kadencrafter78/game78.git",
+  "_target": "^1.1.1",
+  "_originalSource": "https://github.com/kadencrafter78/game78.git",
+  "_direct": true
+}
