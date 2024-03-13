@@ -25,18 +25,26 @@
     
     radius = 25, // the radius of our two circles
     shapeUp = new createjs.Shape(), // the up state: the mouse is NOT intersecting
-    shapeOver = new createjs.Shape(); // the over state: the mouse IS intersecting
+    shapeOver = new createjs.Shape(), // the over state: the mouse IS intersecting
+    shapeOther = new createjs.Shape(), //The other shape in the program
+    shapeFollow = new createjs.Shape(); 
 
   /*
    * Draw two circles, up for when the mouse is not touching it, over
    * for when the mouse is touching it. Note, the createjs API for drawing
    * is somewhat verbouse - it takes a lot of code just to draw a circle.
    */
+
   shapeUp.graphics.beginFill('blue').drawCircle(0, 0, radius);
   shapeOver.graphics.beginFill('red').drawCircle(0, 0, radius);
+  shapeOther.graphics.beginFill('purple').drawRect(0, 0, 50, 50);
+  shapeFollow.graphics.beginFill('yellow').drawCircle(0, 0, radius);
+  
   shapeOver.alpha = 0;
   shapeUp.x = shapeOver.x = canvas.width / 2;
   shapeUp.y = shapeOver.y = canvas.height / 2;
+  shapeOther.x = 100;
+  shapeOther.y = 100;
 
   /*
    * Create a textfield - position it horizontally centered, and  
@@ -44,13 +52,16 @@
    */
   const
     textfield = new createjs.Text('Distance: ', "20px Arial", "#BBB"),
-    textBounds = textfield.getBounds();
+    textBounds = textfield.getBounds(),
+    secondfield = new createjs.Text('Distance: ', "20px Arial", "#BBB");
     
   textfield.x = (canvas.width - textBounds.width) / 2;
   textfield.y = canvas.height / 2 + 50;
+  secondfield.x = 100;
+  secondfield.y = 250;
   
-  stage.addChild(shapeUp, shapeOver, textfield);
-  
+  stage.addChild(shapeUp, shapeOver, shapeOther, shapeFollow, textfield, secondfield);
+  console.log(shapeOther);
   // The update() method is called 60 times a second //
   function update(event) {
     /*
@@ -61,9 +72,11 @@
       x: stage.mouseX,
       y: stage.mouseY
     };
-    distance = getDistance(shapeUp, mouse);
-    console.log(getDistance(shapeUp, mouse));
-    
+    distance = getDistance(shapeUp, shapeFollow);
+    distance2 = getDistance(shapeOther, shapeFollow);
+    shapeFollow.x = mouse.x;
+    shapeFollow.y = mouse.y;
+   // console.log(getDistance(shapeUp, mouse));
     
     /*
      * TODO 6: Check if the mouse is within the area of shapeUp, and set the 
@@ -83,6 +96,8 @@
      *the edge of the shapeUp
      */
     updateText(textfield, `Distance: ${Math.round(distance)}px`);
+    updateSecond(secondfield, `Distance: ${Math.round(distance2)}px`);
+
   }
   
   
@@ -90,10 +105,15 @@
   function updateText(textfield, text) {
     textfield.text = text;
     const textBounds = textfield.getBounds();
+    //secondfield.text = secondtext;
     
     // re-center the text each time it changes //
     textfield.x = (canvas.width - textBounds.width) / 2;
     textfield.y = canvas.height / 2 + 50;
+  }
+  
+  function updateSecond(textfield, text) {
+    textfield.text = text;
   }
 
   function getDistance(pointA, pointB) {
