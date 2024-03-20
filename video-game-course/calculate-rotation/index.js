@@ -1,7 +1,7 @@
 // TODO 4: add a param for your game lib last //
-(function(window, opspark) {
+(function(window, opspark, game78) {
   console.log('index.js initialized!');
-
+  console.log(game78);
   const
     assets = opspark.assets,
     engine = opspark.V6().activateResize(),
@@ -12,14 +12,15 @@
   stage.addChild(textfield);
 
   // try a different hex color if you want //
-  const ship = assets.makeShip('#4286f4');
+  const ship = assets.makeShip('#47038B');
   
   
   // TODO 5: Center the ship on the stage //
-  
+  ship.x = canvas.width / 2;
+  ship.y = canvas.height / 2;
 
   // TODO 6: Add the ship to the stage //
-  
+  stage.addChild(ship);
 
   
   function update(event) {
@@ -34,10 +35,15 @@
      * method takes two points. What do you need to do to translate
      * these values such that they're packed into a point?
      */
+    let mousePoint = {
+      x: stage.mouseX,
+      y: stage.mouseY,
+    };
     
+    const degrees = game78.numz.getAngleDegrees(mousePoint, ship);
     
     // TODO 8: Set the ship's rotation property to the degrees //
-    
+    ship.rotation = degrees;
     
     
     /*
@@ -45,7 +51,7 @@
      * with the current angle degrees. Degrees will be a value 
      * between π and -π, or, 180 and -180.
      */
-    // assets.updateText(textfield, `Degrees: ${degrees.toFixed(3)}°`, canvas);
+     assets.updateText(textfield, `Degrees: ${degrees.toFixed(3)}°`, canvas);
   }
 
   engine
@@ -53,4 +59,4 @@
     .activateTick();
 
 // TODO 3: pass your game lib last with, window.my-game-lib //
-}(window, window.opspark));
+}(window, window.opspark, window.game78));
