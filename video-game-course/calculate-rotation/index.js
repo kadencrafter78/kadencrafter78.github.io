@@ -43,7 +43,7 @@
     const degrees = game78.numz.getAngleDegrees(mousePoint, ship);
     
     // TODO 8: Set the ship's rotation property to the degrees //
-    ship.rotation = -1*degrees;
+    ship.rotation = degrees;
     
     
     /*
