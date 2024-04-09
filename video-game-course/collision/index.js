@@ -1,4 +1,4 @@
-(function(window, opspark, racket) {
+(function(window, opspark, racket, game78) {
   const
     engine = opspark.V6().activateResize(),
     canvas = engine.getCanvas(),
@@ -26,4 +26,4 @@
       playerOne.update)
     .activateTick();
   
-}(window, window.opspark, window.opspark.racket));
+}(window, window.opspark, window.opspark.racket, window.game78));
