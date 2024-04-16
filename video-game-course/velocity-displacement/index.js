@@ -76,8 +76,10 @@
   // listen for user releasing keys //
   document.onkeyup = function(event) {
     // TODO 13: How do we stop the application of forces?
-    ship.propulsion = 0;
-    ship.rotationalVelocity = 0;
+    if (event.key === 'ArrowUp'){
+    ship.propulsion = 0;}
+    else {
+    ship.rotationalVelocity = 0;}
   };
   
   function reboundCircularAssetInArea(body, area) {
