@@ -75,7 +75,7 @@
               
               // TODO 6: Apply inverse acceleration to bodyA
               bodyB.velocityX -= accelerationOnX;
-              bodyB.velocityY -= accelarationOnY;
+              bodyB.velocityY -= accelerationOnY;
               
               
             }
