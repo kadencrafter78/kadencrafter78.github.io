@@ -67,8 +67,14 @@
      * ArrowLeft is pressed, and 5 when its ArrowRight.
      */
     if (event.key === 'ArrowLeft') {
+      if (ship.rotationalVelocity === 5){
+        ship.rotationalVelocity = 0;
+      }
       ship.rotationalVelocity = -5;
     } else if (event.key === 'ArrowRight') {
+      if (ship.rotationalVelocity === -5){
+        ship.rotationalVelocity = 0;
+      }
       ship.rotationalVelocity = 5;
     }
   };
@@ -78,8 +84,8 @@
     // TODO 13: How do we stop the application of forces?
     if (event.key === 'ArrowUp'){
     ship.propulsion = 0;}
-    else {
-    ship.rotationalVelocity = 0;}
+    else {}
+    ship.rotationalVelocity = 0;
   };
   
   function reboundCircularAssetInArea(body, area) {
