@@ -10,6 +10,7 @@
         UP: controls.KEYS.UP,
         LEFT: controls.KEYS.LEFT,
         RIGHT: controls.KEYS.RIGHT,
+        DOWN: controls.KEYS.DOWN,
         FIRE: controls.KEYS.SPACE,
       };
       
@@ -79,13 +80,19 @@
           }
 
           // up arrow can be pressed in combo with other keys //
-          if (controls.isActive(keyMap.UP)) {
+          if (controls.isActive(keyMap.DOWN)) {
+            emitter.emit(ship.getExhaustPoint());
+            ship.propulsion = -0.1;
+            console.log(ship.propulsion);
+          }  else if (controls.isActive(keyMap.UP)) {
             emitter.emit(ship.getExhaustPoint());
             ship.propulsion = 0.1;
+            console.log(ship.propulsion);
           } else {
             emitter.stop();
             ship.propulsion = 0;
           }
+          
           
           /*
            * Space key can be pressed in combo with other keys.

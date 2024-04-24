@@ -51,7 +51,6 @@
         let
           score = 0,
           of = 0;
-
         const
           txtScore = draw.textfield('SCORE : 000', "19px Arial", '#666', 'left'),
           integrity = new createjs.Container(),
