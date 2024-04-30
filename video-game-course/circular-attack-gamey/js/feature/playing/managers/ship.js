@@ -6,17 +6,35 @@
      */
     function(assets, controls, messenger, projectile, emitter, level, keyMap) {
       // default key map //
+      controls.KEYS = {
+        A: "KeyA",
+        D: "KeyD",
+        E: "KeyE",
+        LEFT: "ArrowLeft",
+        RIGHT: "ArrowRight",
+        SHIFT_LEFT: "ShiftLeft",
+        SLASHF: "Slash",
+        SPACE: "Space",
+        UP: "ArrowUp",
+        W: "KeyW",
+        S: "KeyS",
+        DOWN: "ArrowDown",
+        SHIFT_RIGHT: "ShiftRight",
+      }
+      console.log(controls.KEYS);
       keyMap = keyMap || {
         UP: controls.KEYS.UP,
         LEFT: controls.KEYS.LEFT,
         RIGHT: controls.KEYS.RIGHT,
         DOWN: controls.KEYS.DOWN,
+        BOOST: controls.KEYS.SHIFT_RIGHT,
         FIRE: controls.KEYS.SPACE,
       };
       
       let 
         ship, 
-        fire;
+        fire,
+        meter = 100;
         
       setRateOfFire(level.rateOfFire);
 
@@ -79,19 +97,33 @@
             ship.rotationalVelocity = 0;
           }
 
-          // up arrow can be pressed in combo with other keys //
-          if (controls.isActive(keyMap.DOWN)) {
+          // up arrow can be pressed in combo with other keys, but up and down cannot be pressed at the same time //
+            if (controls.isActive(keyMap.UP)) {
+            emitter.emit(ship.getExhaustPoint());
+            ship.propulsion = 0.1;
+           // console.log(ship.propulsion);
+          } 
+          else if (controls.isActive(keyMap.DOWN)) {
             emitter.emit(ship.getExhaustPoint());
             ship.propulsion = -0.1;
             console.log(ship.propulsion);
-          }  else if (controls.isActive(keyMap.UP)) {
-            emitter.emit(ship.getExhaustPoint());
-            ship.propulsion = 0.1;
-            console.log(ship.propulsion);
-          } else {
+          }
+          else {
             emitter.stop();
             ship.propulsion = 0;
           }
+          // Shift key can be pressed independently of any other keys
+          // Meter prevents indefinite use of shift key
+          if (controls.isActive(keyMap.BOOST)){
+            if (meter > 0){
+              ship.propulsion *= 2;
+              meter = meter - 2;
+              console.log(ship.propulsion);
+              console.log(meter);
+            }} else if (meter < 100){
+              meter += 0.5;
+            }
+
           
           
           /*
