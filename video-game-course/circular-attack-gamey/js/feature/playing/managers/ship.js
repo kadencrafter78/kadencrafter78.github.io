@@ -115,7 +115,7 @@
           // Shift key can be pressed independently of any other keys
           // Meter prevents indefinite use of shift key
           if (controls.isActive(keyMap.BOOST)){
-            if (meter > 0){
+            if (meter > 50 || (meter > 0 && ship.propulsion != 0)){
               ship.propulsion *= 2;
               meter = meter - 2;
               console.log(ship.propulsion);

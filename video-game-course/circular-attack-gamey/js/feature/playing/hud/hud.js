@@ -52,7 +52,7 @@
           score = 0,
           of = 0;
         const
-          txtScore = draw.textfield('SCORE : 000', "19px Arial", '#666', 'left'),
+          txtScore = draw.textfield('Meter : 000', "19px Arial", '#666', 'left'),
           integrity = new createjs.Container(),
           background = draw.rect(104, 20, '#CCC'),
           integrityMeter = draw.rect(100, 16, ship.color || '#3333CC');
