@@ -129,6 +129,11 @@
         return hud;
       }
       
+      function meterBurn(ship){
+        
+      }
+
+
       return {
         // called on screen resize //
         liquify() {
