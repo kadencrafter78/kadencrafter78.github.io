@@ -74,7 +74,7 @@
 
       // return the ship manager api //
       return {
-        spawn(color = '#4286f4') {
+        spawn(color = '#800085') {
           if(ship) throw new Error('Player is already spawned!');
           // only one ship is managed by the module //
           ship = assets.makeShip(color);
@@ -118,11 +118,12 @@
             if (meter > 0){
               ship.propulsion *= 2;
               meter = meter - 2;
-              console.log(ship.propulsion);
-              console.log(meter);
+             console.log(ship);
             }
           } else if (meter < 100){
               meter += 0.5;
+            } else {
+              
             }
 
           

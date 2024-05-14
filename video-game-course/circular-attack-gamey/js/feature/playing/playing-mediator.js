@@ -33,10 +33,10 @@
           fx.makePlayerEmitter(), 
           level)
           .setKeyMap({ UP: controls.KEYS.W, LEFT: controls.KEYS.A, RIGHT: controls.KEYS.D, FIRE: controls.KEYS.SHIFT_LEFT, DOWN: controls.KEYS.S, BOOST: controls.KEYS.E})
-          .spawn('#f44242'),
+          .spawn('#ac1d1c'),
           
         orb = opspark.playa.orb(assets, fx, messenger)
-          .spawn(10);
+          .spawn(20);
       
       game.view.addChild(view.container);
       
