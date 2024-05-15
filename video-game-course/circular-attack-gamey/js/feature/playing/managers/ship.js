@@ -10,6 +10,7 @@
         A: "KeyA",
         D: "KeyD",
         E: "KeyE",
+        Q: "KeyQ",
         LEFT: "ArrowLeft",
         RIGHT: "ArrowRight",
         SHIFT_LEFT: "ShiftLeft",
@@ -29,6 +30,7 @@
         DOWN: controls.KEYS.DOWN,
         BOOST: controls.KEYS.SHIFT_RIGHT,
         FIRE: controls.KEYS.SPACE,
+        BRAKE: controls.KEYS.SLASHF,
       };
       
       let 
@@ -108,6 +110,21 @@
             ship.propulsion = -0.1;
             console.log(ship.propulsion);
           }
+          else if (controls.isActive(keyMap.BRAKE)){
+            console.log(ship.velocityX);
+            console.log(ship.velocityY);
+            ship.propulsion = 0;
+            emitter.stop();
+            if (ship.velocityX > 0) {
+              ship.velocityX -= 0.1
+            } else if (ship.velocityX < 0){
+              ship.velocityX += 0.1
+            } if (ship.velocityY > 0){
+              ship.velocityY -= 0.1;
+            } else if (ship.velocityY < 0){
+              ship.velocityY += 0.1
+            }
+          }
           else {
             emitter.stop();
             ship.propulsion = 0;
@@ -122,8 +139,6 @@
             }
           } else if (meter < 100){
               meter += 0.5;
-            } else {
-              
             }
 
           
